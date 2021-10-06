@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="style.css" />
+    <title>List Search</title>
+  </head>
+  <body>
+    <main>
+      <textarea
+        id="text-area"
+        name="w3review"
+        rows="20"
+        cols="80"
+        placeholder="Paste or enter a list of items and press Add"
+      ></textarea>
+      <button id="btn-add" class="btn btn-default">Add</button>
+      <fieldset>
+        <legend>Local Storage</legend>
+        <button id="btn-load" class="btn btn-default">Load</button>
+        <button id="btn-save" class="btn btn-default">Save</button>
+        <button id="btn-delete" class="btn btn-default">Delete</button>
+      </fieldset>
+      <div id="output" class="output"></div>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
