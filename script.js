@@ -1,8 +1,20 @@
 const myData = { strings: [] }
-const textArea = document.getElementById('text-area')
-const btnAdd = document.getElementById('btn-add')
-const output = document.getElementById('output')
 myData.searchStr = 'https://www.youtube.com/results?search_query='
+
+const textArea = document.getElementById('text-area')
+const output = document.getElementById('output')
+const btnAdd = document.getElementById('btn-add')
+const btnLoad = document.getElementById('btn-load')
+const btnSave = document.getElementById('btn-save')
+const btnDelete = document.getElementById('btn-delete')
+
+function saveArray(key, array) {
+  localStorage.setItem(key, JSON.stringify(array))
+}
+
+function loadArray(key) {
+  return JSON.parse(localStorage.getItem(key))
+}
 
 function btnSClick(str, index) {
   const url = myData.searchStr + str
@@ -13,10 +25,10 @@ function btnXClick(str, index) {
   myData.strings.splice(index, 1)
   console.log(str, index)
   output.innerHTML = ''
-  print()
+  renderList()
 }
 
-function print() {
+function renderList() {
   myData.strings.forEach((str, index) => {
     const div = document.createElement('div')
     div.classList.add('div-items')
@@ -43,6 +55,21 @@ function print() {
 btnAdd.addEventListener('click', () => {
   output.innerHTML = ''
   myData.strings = textArea.value.split('\n')
-  print()
-  console.log(myData)
+  renderList()
+})
+
+btnLoad.addEventListener('click', () => {
+  output.innerHTML = ''
+  myData.strings = loadArray('mydatastrings')
+  renderList()
+})
+
+btnSave.addEventListener('click', () => {
+  saveArray('mydatastrings', myData.strings)
+  alert('Data saved to local storage')
+})
+
+btnDelete.addEventListener('click', () => {
+  localStorage.removeItem('mydatastrings')
+  alert('Local storage data deleted')
 })

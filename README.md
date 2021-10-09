@@ -1,9 +1,14 @@
 # Search List
 
-### Description:
+## Description:
 
-A web app for searching a list of items one by one easier, by using different search providers such as Google and Youtube
+A web app for easier searching a list of items one by one, by using different search providers such as Google and Youtube.
 
-### Example Usage:
+## Example Usage:
 
-Paste a list of songs, and search for them in youtube one by one, just by a click of a button.
+Paste a list of songs, and search for them in Youtube one by one, just by a click of a button.
+Delete the ones that you didn't like, and save the list for later to local storage.
+
+## Technologies used:
+
+HTML, CSS, JavaScript

@@ -21,7 +21,6 @@ main {
 
 .div-items {
   margin: 10px;
-  background-color: rgb(186, 190, 211);
 }
 .btn-s {
   background-color: rgb(140, 151, 214);
@@ -35,4 +34,8 @@ main {
 }
 #text-area {
   margin: 10px;
+}
+
+span {
+  /* background-color: rgb(186, 190, 211); */
 }
