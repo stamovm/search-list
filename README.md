@@ -7,7 +7,7 @@ A web app for easier searching a list of items one by one, by using different se
 ## Example Usage:
 
 Paste a list of songs, and search for them in Youtube one by one, just by a click of a button.
-Delete the ones that you didn't like, and save the list for later to local storage.
+The list will be saved to the local storage.
 
 ## Technologies used:
 
