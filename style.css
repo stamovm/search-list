@@ -1,30 +1,91 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 body {
   font-family: 'Roboto', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to right top, #65dfc9, #6cdbeb);
 }
 main {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  /* flex-direction: column; */
+  align-items: start;
+  min-height: 90vh;
+  width: 80%;
   /* justify-content: center; */
-  height: 100vh;
-  margin: 0;
-  overflow: hidden;
+  /* overflow: hidden; */
+  /* z-index: 2; */
+  border-radius: 2rem;
+  background: rgba(255, 0, 0, 0.2);
+  backdrop-filter: blur(0.6rem);
+}
+.main-container {
+  flex: 4;
+  padding: 10px;
+}
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+  min-height: 90vh;
+
+  /* align-items: center; */
+  align-items: stretch;
+  justify-content: flex-start;
+  /* space-evenly; */
+  text-align: center;
+  background: linear-gradient(
+    to right bottom,
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.3)
+  );
+  border-radius: 2rem;
+}
+
+.item,
+.dropdown {
+  background: linear-gradient(
+    to right bottom,
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.3)
+  );
+  border: none;
+  /* width: 50%; */
+  padding: 0.1rem;
+  border-radius: 1rem;
+}
+.lists {
+  height: 10rem;
+  background: linear-gradient(to right top, #65dfc9, #6cdbeb);
+  border-radius: 2rem;
+  color: white;
+  padding: 1rem;
+  background: rgba(30, 125, 117, 0.3);
+  backdrop-filter: blur(0.6rem);
+  /* position: relative; */
 }
 .btn {
   background-color: rgb(212, 126, 126);
+  margin-top: 10px;
+  padding: 0.1rem;
+  border-radius: 1rem;
 }
 
 .div-items {
-  margin: 10px;
+  margin-top: 10px;
 }
 .btn-s {
   background-color: rgb(140, 151, 214);
-  margin-left: 10px;
+  padding-top: 0.1rem;
+  border-radius: 1rem;
 }
 
 .btn-x {
@@ -33,9 +94,13 @@ main {
   background-color: rgb(212, 126, 126);
 }
 #text-area {
-  margin: 10px;
+  margin-top: 10px;
+  padding: 5px;
+  padding-left: 10px;
+  width: 40%;
+  height: 5rem;
 }
 
-span {
-  /* background-color: rgb(186, 190, 211); */
+#s-engine {
+  margin-top: 15px;
 }
