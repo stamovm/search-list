@@ -1,4 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+:root {
+  --clr-primary: rgb(54, 112, 199);
+  --clr-light: linear-gradient(
+    to right bottom,
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.3)
+  );
+  --clr-lists: rgba(30, 125, 117, 0.3);
+  --clr-dark: rgb(10, 97, 71);
+  --clr-warning: rgb(126, 52, 52);
+  --clr-background: linear-gradient(
+    to right bottom,
+    rgba(9, 145, 145, 0.7),
+    rgba(77, 150, 150, 0.9)
+  );
+}
 
 * {
   margin: 0;
@@ -11,7 +27,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(to right top, #65dfc9, #6cdbeb);
+  background: var(--clr-background);
 }
 main {
   display: flex;
@@ -36,62 +52,53 @@ main {
   flex: 1;
   width: 100%;
   min-height: 90vh;
-
-  /* align-items: center; */
   align-items: stretch;
   justify-content: flex-start;
-  /* space-evenly; */
   text-align: center;
-  background: linear-gradient(
-    to right bottom,
-    rgba(255, 255, 255, 0.7),
-    rgba(255, 255, 255, 0.3)
-  );
+  background: var(--clr-light);
   border-radius: 2rem;
 }
 
 .item,
 .dropdown {
-  background: linear-gradient(
-    to right bottom,
-    rgba(255, 255, 255, 0.7),
-    rgba(255, 255, 255, 0.3)
-  );
+  background: var(--clr-light);
   border: none;
-  /* width: 50%; */
   padding: 0.1rem;
   border-radius: 1rem;
 }
 .lists {
   height: 10rem;
-  background: linear-gradient(to right top, #65dfc9, #6cdbeb);
   border-radius: 2rem;
   color: white;
   padding: 1rem;
-  background: rgba(30, 125, 117, 0.3);
+  background: var(--clr-lists);
   backdrop-filter: blur(0.6rem);
-  /* position: relative; */
 }
 .btn {
-  background-color: rgb(212, 126, 126);
+  background-color: var(--clr-lists);
   margin-top: 10px;
   padding: 0.1rem;
+  padding-left: 5px;
+  padding-right: 5px;
   border-radius: 1rem;
+  cursor: pointer;
+}
+
+.btn:hover {
+  color: white;
 }
 
 .div-items {
   margin-top: 10px;
 }
 .btn-s {
-  background-color: rgb(140, 151, 214);
-  padding-top: 0.1rem;
-  border-radius: 1rem;
+  background-color: var(--clr-dark);
 }
 
 .btn-x {
-  margin-left: 5px;
-  margin-right: 10px;
-  background-color: rgb(212, 126, 126);
+  /* margin-left: 5px; */
+  margin-right: 5px;
+  background-color: var(--clr-warning);
 }
 #text-area {
   margin-top: 10px;
