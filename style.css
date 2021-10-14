@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 :root {
-  --clr-primary: rgb(54, 112, 199);
+  /* --clr-primary: rgb(54, 112, 199); */
   --clr-light: linear-gradient(
     to right bottom,
     rgba(255, 255, 255, 0.7),
@@ -49,6 +49,7 @@ main {
 .dashboard {
   display: flex;
   flex-direction: column;
+  padding-top: 0.5rem;
   flex: 1;
   width: 100%;
   min-height: 90vh;
@@ -66,17 +67,20 @@ main {
   padding: 0.1rem;
   border-radius: 1rem;
 }
+.dropdown {
+  margin-left: 2rem;
+}
 .lists {
   height: 10rem;
+  margin-top: 1rem;
   border-radius: 2rem;
-  color: white;
-  padding: 1rem;
+  color: var(--clr-light);
+  padding: 0.5rem;
   background: var(--clr-lists);
   backdrop-filter: blur(0.6rem);
 }
 .btn {
   background-color: var(--clr-lists);
-  margin-top: 10px;
   padding: 0.1rem;
   padding-left: 5px;
   padding-right: 5px;
@@ -90,6 +94,19 @@ main {
 
 .div-items {
   margin-top: 10px;
+  background: var(--clr-light);
+  border-radius: 1rem;
+}
+
+.buttons {
+  /* width: fit-content; */
+  /* display: flex; */
+  /* align-items: center; */
+  /* align-content: center; */
+  /* background-color: red; */
+  justify-content: center;
+  margin-top: 10px;
+  border-radius: 1rem;
 }
 .btn-s {
   background-color: var(--clr-dark);
@@ -104,10 +121,10 @@ main {
   margin-top: 10px;
   padding: 5px;
   padding-left: 10px;
-  width: 40%;
+  width: 100%;
   height: 5rem;
 }
-
-#s-engine {
-  margin-top: 15px;
+#quick-search {
+  width: 150px;
+  transition: width 0.4s ease;
 }

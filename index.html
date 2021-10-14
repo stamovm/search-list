@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/83a852bf57.js"
+      crossorigin="anonymous"
+    ></script>
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="style.css" />
     <title>Search List</title>
@@ -11,35 +15,70 @@
   <body>
     <main>
       <div class="dashboard">
-        <h4>Search</h4>
-        <h4>Lists</h4>
-        <h4>Lists2</h4>
+        <h4>Search List</h4>
         <div class="lists">
-          <h6>list item</h6>
+          <h4>Open windows:</h4>
+        </div>
+        <div class="lists">
+          <h4>Lists:</h4>
         </div>
       </div>
       <div class="main-container">
         <div class="buttons">
-          <button id="btn-paste" class="btn btn-default">Paste</button>
-          <button id="btn-clear" class="btn btn-default">Clear</button>
+          <button
+            id="btn-paste"
+            class="btn btn-default"
+            title="Paste from clipboard to the edit area"
+          >
+            Paste
+          </button>
+          <button
+            id="btn-clear"
+            class="btn btn-default"
+            title="Clear the text is the edit area"
+          >
+            Clear
+          </button>
         </div>
         <textarea
           id="text-area"
           class="item"
-          name="w3review"
+          name="text-area"
           placeholder="Paste or enter a list of items and press the Update list button"
         ></textarea>
         <div class="buttons">
-          <button id="btn-update" class="btn btn-default">Update list</button>
-          <button id="btn-recall" class="btn btn-default">Recall</button>
+          <button
+            id="btn-update"
+            class="btn btn-default"
+            title="Update the list from the edit area"
+          >
+            Update list
+          </button>
+          <button
+            id="btn-recall"
+            class="btn btn-default"
+            title="Move the list to the edit area"
+          >
+            Recall
+          </button>
+
+          <select name="search engine" class="dropdown" id="s-engine">
+            <option value="Google">Google</option>
+            <option value="YouTube">YouTube</option>
+            <option value="DuckDuckGo">DuckDuckGo</option>
+            <option value="Bing">Bing</option>
+          </select>
+          <input
+            id="quick-search"
+            type="text"
+            class="item"
+            placeholder="Search..."
+          />
+          <button onclick="btnQuickSearch()" class="btn">
+            <i class="fa fa-search"></i>
+          </button>
         </div>
-        <select name="search engine" class="dropdown" id="s-engine">
-          <option value="YouTube">YouTube</option>
-          <option value="Google">Google</option>
-          <option value="Bing">Bing</option>
-          <option value="DuckDuckGo">DuckDuckGo</option>
-        </select>
-        <div id="output" class="output"></div>
+        <div id="output-lists" class=""></div>
       </div>
     </main>
   </body>
