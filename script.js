@@ -6,12 +6,15 @@ const btnUpdate = document.getElementById('btn-update')
 const btnRecall = document.getElementById('btn-recall')
 const sEngine = document.getElementById('s-engine')
 const quickSearch = document.getElementById('quick-search')
+const openWindows = document.getElementById('open-windows')
 
-const myData = { strings: [] }
+const listObj = { id: 1, name: '', strings: [] }
+const myLists = []
+const openWindowsArr = []
 let openW
 
-myData.strings = loadArray('mydatastrings')
-if (myData.strings) renderList()
+listObj.strings = loadArray('mydatastrings')
+if (listObj.strings) renderList()
 
 function saveArray(key, array) {
   localStorage.setItem(key, JSON.stringify(array))
@@ -35,16 +38,16 @@ function btnQuickSearch() {
 function setSearchEngine() {
   switch (sEngine.value) {
     case 'Google':
-      myData.searchStr = 'https://www.google.com/search?q='
+      listObj.searchStr = 'https://www.google.com/search?q='
       break
     case 'YouTube':
-      myData.searchStr = 'https://www.youtube.com/results?search_query='
+      listObj.searchStr = 'https://www.youtube.com/results?search_query='
       break
     case 'Bing':
-      myData.searchStr = 'https://www.bing.com/search?q='
+      listObj.searchStr = 'https://www.bing.com/search?q='
       break
     case 'DuckDuckGo':
-      myData.searchStr = 'https://www.duckduckgo.com/?q='
+      listObj.searchStr = 'https://www.duckduckgo.com/?q='
       break
   }
 }
@@ -57,15 +60,17 @@ function btnSClick(str, index) {
     } else url = str
   } else {
     setSearchEngine()
-    url = myData.searchStr + str
+    url = listObj.searchStr + str
   }
-
   openW = window.open(url)
+  window.focus()
+  if (openW) openWindowsArr.push(openW)
+  // openW = null
 }
 
 function btnXClick(str, index) {
-  myData.strings.splice(index, 1)
-  saveArray('mydatastrings', myData.strings)
+  listObj.strings.splice(index, 1)
+  saveArray('mydatastrings', listObj.strings)
   renderList()
 }
 function btnSaveClick() {
@@ -77,19 +82,42 @@ function btnSaveClick() {
     'Enter list name:',
     new Date().toJSON().slice(0, 10)
   )
+  if (listName) {
+    listObj.name = listName
+    myLists.push(listObj)
+  }
+  renderListsNames()
+  // renderOpenWindows()
 }
 
+function renderOpenWindows() {
+  // openWindows.filter((window)=>window.closed)
+  console.log(openWindowsArr)
+
+  openWindowsArr.forEach((w) => {
+    console.log(w.closed)
+    // console.log(window.location.href)
+    console.log(openW.location.href)
+    // w.close()
+  })
+}
+function renderListsNames() {
+  console.log(myLists)
+}
 function renderList() {
   output.innerHTML = ''
-  myData.strings.forEach((str, index) => {
+  listObj.strings.forEach((str, index) => {
     const div = document.createElement('div')
     div.classList.add('div-items')
 
     //btn s (search)
     const btnS = document.createElement('button')
-    // btnS.textContent = 'search'
     btnS.innerHTML = '<i class="fa fa-search"></i>'
-    if (isURL(str)) btnS.textContent = ' open'
+    btnS.setAttribute('title', 'Search for ' + str)
+    if (isURL(str)) {
+      btnS.innerHTML = '<i class="fa fa-external-link"></i>'
+      btnS.setAttribute('title', 'Open  Link: ' + str)
+    }
     btnS.classList.add('btn', 'btn-s')
     div.appendChild(btnS)
     btnS.addEventListener('click', () => btnSClick(str, index))
@@ -98,7 +126,7 @@ function renderList() {
     const btnX = document.createElement('button')
     btnX.textContent = 'X'
     btnX.classList.add('btn', 'btn-x')
-    btnX.setAttribute('title', 'Delete')
+    btnX.setAttribute('title', 'Delete ' + str)
     div.appendChild(btnX)
     btnX.addEventListener('click', () => btnXClick(str, index))
 
@@ -113,9 +141,9 @@ function renderList() {
   const div = document.createElement('div')
   div.classList.add('buttons')
   const btnSave = document.createElement('button')
-  btnSave.textContent = 'Save list'
+  btnSave.innerHTML = '<i class="fa fa-floppy-o"></i> Save list'
   btnSave.classList.add('btn')
-  btnSave.setAttribute('title', 'Delete')
+  btnSave.setAttribute('title', 'Add to Lists and save')
   btnSave.addEventListener('click', () => btnSaveClick())
   div.appendChild(btnSave)
   output.appendChild(div)
@@ -129,16 +157,16 @@ async function paste() {
 //---- Event Listeners
 btnUpdate.addEventListener('click', () => {
   if (textArea.value == '') return
-  myData.strings = textArea.value.split('\n')
-  saveArray('mydatastrings', myData.strings)
+  listObj.strings = textArea.value.split('\n')
+  saveArray('mydatastrings', listObj.strings)
   renderList()
   textArea.value = ''
 })
 
 btnRecall.addEventListener('click', () => {
-  textArea.value = myData.strings.join('\n')
-  myData.strings = []
-  saveArray('mydatastrings', myData.strings)
+  textArea.value = listObj.strings.join('\n')
+  listObj.strings = []
+  saveArray('mydatastrings', listObj.strings)
   renderList()
 })
 
