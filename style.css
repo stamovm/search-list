@@ -75,7 +75,7 @@ main {
   background-color: rgb(88, 138, 138);
 }
 .lists {
-  height: 10rem;
+  min-height: 10rem;
   margin-top: 1rem;
   border-radius: 2rem;
   color: var(--clr-light);
@@ -121,6 +121,16 @@ main {
   margin-right: 5px;
   background-color: var(--clr-warning);
 }
+ul {
+  margin-top: 5px;
+}
+li {
+  list-style: none;
+  cursor: pointer;
+}
+li:hover {
+  color: white;
+}
 #text-area {
   margin-top: 10px;
   padding: 5px;
@@ -134,5 +144,7 @@ main {
 }
 #quick-search {
   width: 150px;
-  transition: width 0.4s ease;
+  padding: 0.1rem;
+  padding-left: 5px;
+  /* transition: width 0.4s ease; */
 }

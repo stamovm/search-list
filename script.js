@@ -13,7 +13,10 @@ let curentID = 0
 
 if (myLists.length === 0) {
   myLists.push(newListObj('first list'))
-} else renderList()
+} else {
+  renderList()
+  renderListsNames()
+}
 
 function newListObj(name) {
   let listObj = {
@@ -77,7 +80,6 @@ function btnXClick(str, index) {
   myLists[curentID].strings.splice(index, 1)
   saveArray('myLists', myLists)
   renderList()
-  renderListNames()
 }
 
 function renderOpenWindows() {
@@ -93,10 +95,24 @@ function renderOpenWindows() {
 }
 function renderListsNames() {
   console.log(myLists)
+  outputListNames.innerHTML = ''
+  const ul = document.createElement('ul')
+  myLists.forEach((item, index) => {
+    if (index !== 0) {
+      const li = document.createElement('li')
+      li.innerText = item.name
+      li.addEventListener('click', () => {
+        curentID = index
+        renderList()
+        console.log('index : ' + curentID)
+      })
+      ul.appendChild(li)
+    }
+  })
+  outputListNames.appendChild(ul)
 }
 function renderList() {
   outputLists.innerHTML = ''
-  // console.log('tuk: ', myLists[curentID].strings)
   myLists[curentID].strings.forEach((str, index) => {
     const div = document.createElement('div')
     div.classList.add('div-items')
@@ -145,15 +161,12 @@ async function paste() {
   textArea.value = text
 }
 function btnQuickSearchClick() {
-  const str = quickSearch.value
-  btnSClick(str)
+  btnSClick(quickSearch.value)
 }
 
 function btnAddClick() {
   if (textArea.value == '') return
   const arr = textArea.value.split('\n')
-  // console.log(arr)
-  // console.log(myLists[curentID].strings)
   myLists[curentID].strings.push(...arr)
   saveArray('myLists', myLists)
   renderList()
@@ -175,10 +188,10 @@ function btnSaveClick() {
     myLists.push(newListObj(listName))
   }
   curentID = myLists.length - 1
-  // myLists[curentID].strings=
+  myLists[curentID].strings = [...myLists[curentID - 1].strings]
   renderListsNames()
-  renderOpenWindows()
-  console.log(myLists)
+  // renderOpenWindows()
+  // console.log(myLists)
 }
 function btnExpandClick() {
   textArea.classList.toggle('expanded')
@@ -191,4 +204,8 @@ btnRecall.addEventListener('click', () => {
   myLists[curentID].strings = []
   saveArray('myLists', myLists)
   renderList()
+})
+
+quickSearch.addEventListener('keyup', (event) => {
+  if (event.key === 'Enter') btnSClick(quickSearch.value)
 })
