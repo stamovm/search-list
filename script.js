@@ -1,20 +1,32 @@
 const textArea = document.getElementById('text-area')
-const output = document.getElementById('output-lists')
-const btnPaste = document.getElementById('btn-paste')
-const btnClear = document.getElementById('btn-clear')
-const btnUpdate = document.getElementById('btn-update')
+const outputLists = document.getElementById('output-lists')
+// const btnPaste = document.getElementById('btn-paste')
+// const btnClear = document.getElementById('btn-clear')
+// const btnUpdate = document.getElementById('btn-update')
 const btnRecall = document.getElementById('btn-recall')
 const sEngine = document.getElementById('s-engine')
 const quickSearch = document.getElementById('quick-search')
-const openWindows = document.getElementById('open-windows')
+const openWindowsList = document.getElementById('open-windows-list')
+const outputListNames = document.getElementById('output-list-names')
 
-const listObj = { id: 1, name: '', strings: [] }
-const myLists = []
-const openWindowsArr = []
-let openW
+var openWindowsArr = []
+let myLists = loadArray('myLists') || []
+// let myLists = []
+let curentID = 0
 
-listObj.strings = loadArray('mydatastrings')
-if (listObj.strings) renderList()
+if (myLists.length === 0) {
+  myLists.push(newListObj('first list'))
+} else renderList()
+
+function newListObj(name) {
+  let listObj = {
+    id: Date.now.toString,
+    name: name,
+    searchStr: 'https://www.google.com/search?q=',
+    strings: [],
+  }
+  return listObj
+}
 
 function saveArray(key, array) {
   localStorage.setItem(key, JSON.stringify(array))
@@ -30,26 +42,23 @@ function isURL(url) {
   return regex.test(url)
 }
 
-function btnQuickSearch() {
-  const str = quickSearch.value
-  btnSClick(str)
-}
-
-function setSearchEngine() {
-  switch (sEngine.value) {
+function setSearchEngine(str) {
+  let searchStr = 'https://www.google.com/search?q=' //default search engine
+  switch (str) {
     case 'Google':
-      listObj.searchStr = 'https://www.google.com/search?q='
+      searchStr = 'https://www.google.com/search?q='
       break
     case 'YouTube':
-      listObj.searchStr = 'https://www.youtube.com/results?search_query='
+      searchStr = 'https://www.youtube.com/results?search_query='
       break
     case 'Bing':
-      listObj.searchStr = 'https://www.bing.com/search?q='
+      searchStr = 'https://www.bing.com/search?q='
       break
     case 'DuckDuckGo':
-      listObj.searchStr = 'https://www.duckduckgo.com/?q='
+      searchStr = 'https://www.duckduckgo.com/?q='
       break
   }
+  myLists[curentID].searchStr = searchStr
 }
 
 function btnSClick(str, index) {
@@ -59,35 +68,19 @@ function btnSClick(str, index) {
       url = 'http://' + str
     } else url = str
   } else {
-    setSearchEngine()
-    url = listObj.searchStr + str
+    setSearchEngine(sEngine.value)
+    url = myLists[curentID].searchStr + str
   }
-  openW = window.open(url)
+  let openW = window.open(url)
   window.focus()
   if (openW) openWindowsArr.push(openW)
-  // openW = null
 }
 
 function btnXClick(str, index) {
-  listObj.strings.splice(index, 1)
-  saveArray('mydatastrings', listObj.strings)
+  myLists[curentID].strings.splice(index, 1)
+  saveArray('myLists', myLists)
   renderList()
-}
-function btnSaveClick() {
-  //todo focus and close functions for open windows
-  // console.log(openW)
-  // openW.focus()
-  //todo edit for lists
-  let listName = window.prompt(
-    'Enter list name:',
-    new Date().toJSON().slice(0, 10)
-  )
-  if (listName) {
-    listObj.name = listName
-    myLists.push(listObj)
-  }
-  renderListsNames()
-  // renderOpenWindows()
+  renderListNames()
 }
 
 function renderOpenWindows() {
@@ -97,7 +90,7 @@ function renderOpenWindows() {
   openWindowsArr.forEach((w) => {
     console.log(w.closed)
     // console.log(window.location.href)
-    console.log(openW.location.href)
+    console.log(w.location)
     // w.close()
   })
 }
@@ -105,8 +98,9 @@ function renderListsNames() {
   console.log(myLists)
 }
 function renderList() {
-  output.innerHTML = ''
-  listObj.strings.forEach((str, index) => {
+  outputLists.innerHTML = ''
+  // console.log('tuk: ', myLists[curentID].strings)
+  myLists[curentID].strings.forEach((str, index) => {
     const div = document.createElement('div')
     div.classList.add('div-items')
 
@@ -135,7 +129,7 @@ function renderList() {
     span.textContent = str
     span.setAttribute('contenteditable', 'true')
     div.appendChild(span)
-    output.appendChild(div)
+    outputLists.appendChild(div)
   })
   //btn Save list
   const div = document.createElement('div')
@@ -146,35 +140,55 @@ function renderList() {
   btnSave.setAttribute('title', 'Add to Lists and save')
   btnSave.addEventListener('click', () => btnSaveClick())
   div.appendChild(btnSave)
-  output.appendChild(div)
+  outputLists.appendChild(div)
 }
 
 async function paste() {
   const text = await navigator.clipboard.readText()
   textArea.value = text
 }
+function btnQuickSearchClick() {
+  const str = quickSearch.value
+  btnSClick(str)
+}
+
+function btnAddClick() {
+  if (textArea.value == '') return
+  const arr = textArea.value.split('\n')
+  // console.log(arr)
+  // console.log(myLists[curentID].strings)
+  myLists[curentID].strings.push(...arr)
+  saveArray('myLists', myLists)
+  renderList()
+  textArea.value = ''
+}
+function btnClearClick() {
+  textArea.value = ''
+}
+function btnSaveClick() {
+  //todo focus and close functions for open windows
+  // console.log(openW)
+  // openW.focus()
+  //todo edit for lists
+  let listName = window.prompt(
+    'Enter list name:',
+    new Date().toJSON().slice(0, 10)
+  )
+  if (listName) {
+    myLists.push(newListObj(listName))
+  }
+  curentID = myLists.length - 1
+  // myLists[curentID].strings=
+  renderListsNames()
+  renderOpenWindows()
+  console.log(myLists)
+}
+function btnExpandClick() {}
 
 //---- Event Listeners
-btnUpdate.addEventListener('click', () => {
-  if (textArea.value == '') return
-  listObj.strings = textArea.value.split('\n')
-  saveArray('mydatastrings', listObj.strings)
-  renderList()
-  textArea.value = ''
-})
-
 btnRecall.addEventListener('click', () => {
-  textArea.value = listObj.strings.join('\n')
-  listObj.strings = []
-  saveArray('mydatastrings', listObj.strings)
+  textArea.value = myLists[curentID].strings.join('\n')
+  myLists[curentID].strings = []
+  saveArray('myLists', myLists)
   renderList()
-})
-
-btnPaste.addEventListener('click', () => {
-  paste()
-  console.log('paste')
-})
-
-btnClear.addEventListener('click', () => {
-  textArea.value = ''
 })

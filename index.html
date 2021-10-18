@@ -16,19 +16,28 @@
     <main>
       <div class="dashboard">
         <h4>Search List</h4>
-        <div open-windows" class="lists">
+        <div class="lists">
           <h4>Open windows:</h4>
-          <div id="open-windows"></div>
+          <div id="open-windows-list"></div>
         </div>
         <div class="lists">
           <h4>Lists:</h4>
-          <div id="lsits"></div>
+          <div id="output-list-names"></div>
         </div>
       </div>
       <div class="main-container">
         <div class="buttons">
           <button
+            onclick="btnExpandClick()"
+            class="btn"
+            title="Expand the edit area"
+          >
+            <i class="fa fa-angle-double-down"></i>
+            Expand
+          </button>
+          <button
             id="btn-paste"
+            onclick="paste()"
             class="btn btn-default"
             title="Paste from clipboard to the edit area"
           >
@@ -37,6 +46,7 @@
           </button>
           <button
             id="btn-clear"
+            onclick="btnClearClick()"
             class="btn btn-default"
             title="Clear the text is the edit area"
           >
@@ -51,6 +61,15 @@
           placeholder="Paste or enter a list of items and press the Update list button"
         ></textarea>
         <div class="buttons">
+          <button
+            id="btn-add"
+            onclick="btnAddClick()"
+            class="btn btn-default"
+            title="Add to the list from the edit area"
+          >
+            <i class="fa fa-plus"></i>
+            Add
+          </button>
           <button
             id="btn-update"
             class="btn btn-default"
@@ -80,7 +99,7 @@
             class="item"
             placeholder="Search..."
           />
-          <button onclick="btnQuickSearch()" class="btn">
+          <button onclick="btnQuickSearchClick()" class="btn">
             <i class="fa fa-search"></i>
           </button>
         </div>
