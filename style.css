@@ -127,6 +127,10 @@ main {
   padding-left: 10px;
   width: 100%;
   height: 3rem;
+  transition: height 0.6s ease-out;
+}
+#text-area.expanded {
+  height: 20rem;
 }
 #quick-search {
   width: 150px;

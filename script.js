@@ -1,8 +1,5 @@
 const textArea = document.getElementById('text-area')
 const outputLists = document.getElementById('output-lists')
-// const btnPaste = document.getElementById('btn-paste')
-// const btnClear = document.getElementById('btn-clear')
-// const btnUpdate = document.getElementById('btn-update')
 const btnRecall = document.getElementById('btn-recall')
 const sEngine = document.getElementById('s-engine')
 const quickSearch = document.getElementById('quick-search')
@@ -183,7 +180,10 @@ function btnSaveClick() {
   renderOpenWindows()
   console.log(myLists)
 }
-function btnExpandClick() {}
+function btnExpandClick() {
+  textArea.classList.toggle('expanded')
+  textArea.focus()
+}
 
 //---- Event Listeners
 btnRecall.addEventListener('click', () => {
