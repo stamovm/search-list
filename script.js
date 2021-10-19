@@ -148,7 +148,7 @@ function renderList() {
   const div = document.createElement('div')
   div.classList.add('buttons')
   const btnSave = document.createElement('button')
-  btnSave.innerHTML = '<i class="fa fa-floppy-o"></i> Save list'
+  btnSave.innerHTML = '<i class="fa fa-floppy-o"></i> Save As...'
   btnSave.classList.add('btn')
   btnSave.setAttribute('title', 'Add to Lists and save')
   btnSave.addEventListener('click', () => btnSaveClick())
@@ -186,9 +186,10 @@ function btnSaveClick() {
   )
   if (listName) {
     myLists.push(newListObj(listName))
-  }
+  } else return
+  const tmpID = curentID
   curentID = myLists.length - 1
-  myLists[curentID].strings = [...myLists[curentID - 1].strings]
+  myLists[curentID].strings = [...myLists[tmpID].strings]
   renderListsNames()
   // renderOpenWindows()
   // console.log(myLists)
