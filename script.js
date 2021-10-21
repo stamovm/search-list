@@ -100,8 +100,9 @@ function renderListsNames() {
     const li = document.createElement('li')
     li.innerText = item.name
     if (index === curentID) {
-      li.style.color = 'green'
       li.style.fontWeight = 'bold'
+      li.style.background = 'var(--clr-lists)'
+      li.style.borderRadius = '1rem'
     }
     li.addEventListener('click', () => {
       curentID = index
@@ -154,15 +155,30 @@ function renderList() {
     div.appendChild(span)
     outputLists.appendChild(div)
   })
-  //btn Save list
+  //btn Save as...,
   const div = document.createElement('div')
   div.classList.add('buttons')
   const btnSave = document.createElement('button')
   btnSave.innerHTML = '<i class="fa fa-floppy-o"></i> Save As...'
   btnSave.classList.add('btn')
-  btnSave.setAttribute('title', 'Add to Lists and save')
+  btnSave.setAttribute('title', 'Save a copy of this list as...')
   btnSave.addEventListener('click', () => btnSaveClick())
   div.appendChild(btnSave)
+
+  //btn rename, delete
+  const btnRename = document.createElement('button')
+  btnRename.innerHTML = '<i class="fa fa-pencil"></i> Rename'
+  btnRename.classList.add('btn')
+  btnRename.setAttribute('title', 'Rename the list:  ' + myLists[curentID].name)
+  btnRename.addEventListener('click', () => {
+    let listName = window.prompt('Enter new list name:', myLists[curentID].name)
+    if (listName) {
+      myLists[curentID].name = listName
+      saveArray('myLists', myLists)
+      renderListsNames()
+    }
+  })
+  div.appendChild(btnRename)
   outputLists.appendChild(div)
 }
 

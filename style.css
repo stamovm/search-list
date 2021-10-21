@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 :root {
-  /* --clr-primary: rgb(54, 112, 199); */
+  --clr-main: rgba(255, 0, 0, 0.2);
   --clr-light: linear-gradient(
     to right bottom,
     rgba(255, 255, 255, 0.7),
@@ -31,7 +31,6 @@ body {
 }
 main {
   display: flex;
-  /* flex-direction: column; */
   align-items: start;
   min-height: 90vh;
   width: 80%;
@@ -39,7 +38,7 @@ main {
   /* overflow: hidden; */
   /* z-index: 2; */
   border-radius: 2rem;
-  background: rgba(255, 0, 0, 0.2);
+  background: var(--clr-main);
   backdrop-filter: blur(0.6rem);
 }
 .main-container {
@@ -72,7 +71,7 @@ main {
 }
 .dropdown * {
   border-radius: 1rem;
-  background-color: rgb(88, 138, 138);
+  background-color: var(--clr-lists);
 }
 .lists {
   min-height: 10rem;
@@ -90,6 +89,7 @@ main {
   padding-right: 5px;
   border-radius: 1rem;
   cursor: pointer;
+  margin-right: 5px;
 }
 
 .btn:hover {
@@ -97,7 +97,7 @@ main {
 }
 
 .div-items {
-  margin-top: 10px;
+  margin-bottom: 10px;
   background: var(--clr-light);
   border-radius: 1rem;
 }
@@ -108,8 +108,8 @@ main {
   /* align-items: center; */
   /* align-content: center; */
   /* background-color: red; */
-  justify-content: center;
-  margin-top: 10px;
+  /* justify-content: center; */
+  margin-bottom: 10px;
   border-radius: 1rem;
 }
 .btn-s {
@@ -132,7 +132,7 @@ li:hover {
   color: white;
 }
 #text-area {
-  margin-top: 10px;
+  margin-bottom: 5px;
   padding: 5px;
   padding-left: 10px;
   width: 100%;
