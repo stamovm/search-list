@@ -155,9 +155,9 @@ function renderList() {
     div.appendChild(span)
     outputLists.appendChild(div)
   })
-  //btn Save as...,
   const div = document.createElement('div')
   div.classList.add('buttons')
+  //btn Save as...,
   const btnSave = document.createElement('button')
   btnSave.innerHTML = '<i class="fa fa-floppy-o"></i> Save As...'
   btnSave.classList.add('btn')
@@ -179,6 +179,30 @@ function renderList() {
     }
   })
   div.appendChild(btnRename)
+  //btn delete
+  const btnDeleteList = document.createElement('button')
+  btnDeleteList.innerHTML = '<i class="fa fa-trash-o"></i> Delete List'
+  btnDeleteList.classList.add('btn')
+  btnDeleteList.setAttribute(
+    'title',
+    'Delete the list:  ' + myLists[curentID].name
+  )
+  btnDeleteList.addEventListener('click', () => {
+    let answer = window.prompt(
+      'Are you sure you wan to delete: ' + myLists[curentID].name,
+      'Yes'
+    )
+    if (answer === 'Yes') {
+      if (myLists.length > 1) {
+        myLists.splice(curentID, 1)
+        saveArray('myLists', myLists)
+        curentID = 0
+        renderListsNames()
+        renderList()
+      }
+    }
+  })
+  div.appendChild(btnDeleteList)
   outputLists.appendChild(div)
 }
 
@@ -228,9 +252,9 @@ function btnExpandClick() {
 //---- Event Listeners
 btnRecall.addEventListener('click', () => {
   textArea.value = myLists[curentID].strings.join('\n')
-  myLists[curentID].strings = []
-  saveArray('myLists', myLists)
-  renderList()
+  // myLists[curentID].strings = []
+  // saveArray('myLists', myLists)
+  // renderList()
 })
 
 quickSearch.addEventListener('keyup', (event) => {
