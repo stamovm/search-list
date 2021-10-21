@@ -94,20 +94,22 @@ function renderOpenWindows() {
   })
 }
 function renderListsNames() {
-  console.log(myLists)
   outputListNames.innerHTML = ''
   const ul = document.createElement('ul')
   myLists.forEach((item, index) => {
-    if (index !== 0) {
-      const li = document.createElement('li')
-      li.innerText = item.name
-      li.addEventListener('click', () => {
-        curentID = index
-        renderList()
-        console.log('index : ' + curentID)
-      })
-      ul.appendChild(li)
+    const li = document.createElement('li')
+    li.innerText = item.name
+    if (index === curentID) {
+      li.style.color = 'green'
+      li.style.fontWeight = 'bold'
     }
+    li.addEventListener('click', () => {
+      curentID = index
+      renderList()
+      renderListsNames()
+      console.log('index : ' + curentID)
+    })
+    ul.appendChild(li)
   })
   outputListNames.appendChild(ul)
 }
@@ -141,6 +143,14 @@ function renderList() {
     const span = document.createElement('span')
     span.textContent = str
     span.setAttribute('contenteditable', 'true')
+    span.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        myLists[curentID].strings[index] = span.textContent
+        event.preventDefault()
+        saveArray('myLists', myLists)
+        textArea.focus()
+      }
+    })
     div.appendChild(span)
     outputLists.appendChild(div)
   })
