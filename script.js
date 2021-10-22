@@ -72,8 +72,10 @@ function btnSClick(str, index) {
     url = myLists[curentID].searchStr + str
   }
   let openW = window.open(url)
-  window.focus()
-  if (openW) openWindowsArr.push(openW)
+  if (openW) {
+    openWindowsArr.push(openW)
+    renderOpenWindows()
+  }
 }
 
 function btnXClick(str, index) {
@@ -84,14 +86,23 @@ function btnXClick(str, index) {
 
 function renderOpenWindows() {
   // openWindows.filter((window)=>window.closed)
-  console.log(openWindowsArr)
-
-  openWindowsArr.forEach((w) => {
-    console.log(w.closed)
+  // console.log(openWindowsArr)
+  openWindowsList.innerHTML = ''
+  const ul = document.createElement('ul')
+  openWindowsArr.forEach((w, index) => {
+    const li = document.createElement('li')
+    li.innerHTML = '<i class="fa fa-window-maximize"></i> ' + (index + 1)
+    li.addEventListener('click', () => {
+      console.log(openWindowsArr[index].closed)
+      // console.log(openWindowsArr[index].window)
+      openWindowsArr[index].focus()
+    })
+    // console.log(w.closed)
     // console.log(window.location.href)
-    console.log(w.location)
     // w.close()
+    ul.appendChild(li)
   })
+  openWindowsList.appendChild(ul)
 }
 function renderListsNames() {
   outputListNames.innerHTML = ''
@@ -108,12 +119,12 @@ function renderListsNames() {
       curentID = index
       renderList()
       renderListsNames()
-      console.log('index : ' + curentID)
     })
     ul.appendChild(li)
   })
   outputListNames.appendChild(ul)
 }
+
 function renderList() {
   outputLists.innerHTML = ''
   myLists[curentID].strings.forEach((str, index) => {
@@ -157,6 +168,7 @@ function renderList() {
   })
   const div = document.createElement('div')
   div.classList.add('buttons')
+
   //btn Save as...,
   const btnSave = document.createElement('button')
   btnSave.innerHTML = '<i class="fa fa-floppy-o"></i> Save As...'
@@ -165,7 +177,7 @@ function renderList() {
   btnSave.addEventListener('click', () => btnSaveClick())
   div.appendChild(btnSave)
 
-  //btn rename, delete
+  //btn rename
   const btnRename = document.createElement('button')
   btnRename.innerHTML = '<i class="fa fa-pencil"></i> Rename'
   btnRename.classList.add('btn')
@@ -179,6 +191,7 @@ function renderList() {
     }
   })
   div.appendChild(btnRename)
+
   //btn delete
   const btnDeleteList = document.createElement('button')
   btnDeleteList.innerHTML = '<i class="fa fa-trash-o"></i> Delete List'
@@ -204,6 +217,7 @@ function renderList() {
   })
   div.appendChild(btnDeleteList)
   outputLists.appendChild(div)
+  renderOpenWindows()
 }
 
 async function paste() {
@@ -226,10 +240,6 @@ function btnClearClick() {
   textArea.value = ''
 }
 function btnSaveClick() {
-  //todo focus and close functions for open windows
-  // console.log(openW)
-  // openW.focus()
-  //todo edit for lists
   let listName = window.prompt(
     'Enter list name:',
     new Date().toJSON().slice(0, 10)
@@ -241,8 +251,6 @@ function btnSaveClick() {
   curentID = myLists.length - 1
   myLists[curentID].strings = [...myLists[tmpID].strings]
   renderListsNames()
-  // renderOpenWindows()
-  // console.log(myLists)
 }
 function btnExpandClick() {
   textArea.classList.toggle('expanded')
