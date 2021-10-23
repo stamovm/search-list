@@ -8,15 +8,14 @@ const outputListNames = document.getElementById('output-list-names')
 
 var openWindowsArr = []
 let myLists = loadArray('myLists') || []
-// let myLists = []
 let curentID = 0
 
 if (myLists.length === 0) {
   myLists.push(newListObj('first list'))
 } else {
   renderList()
-  renderListsNames()
 }
+renderListsNames()
 
 function newListObj(name) {
   let listObj = {
