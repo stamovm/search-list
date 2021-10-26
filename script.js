@@ -91,18 +91,22 @@ function renderOpenWindows() {
   openWindowsArr.forEach((w, index) => {
     const li = document.createElement('li')
     li.innerHTML = '<i class="fa fa-window-maximize"></i> ' + (index + 1)
+    li.setAttribute('title', 'Right click to close')
     li.addEventListener('click', () => {
-      console.log(openWindowsArr[index].closed)
-      // console.log(openWindowsArr[index].window)
       openWindowsArr[index].focus()
     })
-    // console.log(w.closed)
-    // console.log(window.location.href)
-    // w.close()
+    li.addEventListener('contextmenu', (e) => {
+      e.preventDefault()
+      openWindowsArr[index].close()
+      openWindowsArr.splice(index, 1)
+      renderOpenWindows()
+    })
+
     ul.appendChild(li)
   })
   openWindowsList.appendChild(ul)
 }
+
 function renderListsNames() {
   outputListNames.innerHTML = ''
   const ul = document.createElement('ul')
