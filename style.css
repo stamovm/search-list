@@ -33,7 +33,7 @@ main {
   display: flex;
   align-items: start;
   min-height: 90vh;
-  width: 80%;
+  width: 100%;
   /* justify-content: center; */
   /* overflow: hidden; */
   /* z-index: 2; */
@@ -66,9 +66,7 @@ main {
   padding: 0.1rem;
   border-radius: 1rem;
 }
-.dropdown {
-  margin-left: 2rem;
-}
+
 .dropdown * {
   border-radius: 1rem;
   background-color: var(--clr-lists);
@@ -94,7 +92,7 @@ main {
 
 .btn:hover {
   color: white;
-  transition: color 0.3s ease;
+  transition: color 0.4s ease-out;
 }
 
 .div-items {
@@ -104,12 +102,7 @@ main {
 }
 
 .buttons {
-  /* width: fit-content; */
-  /* display: flex; */
-  /* align-items: center; */
-  /* align-content: center; */
-  /* background-color: red; */
-  /* justify-content: center; */
+  display: flex;
   margin-bottom: 10px;
   border-radius: 1rem;
 }
@@ -118,7 +111,6 @@ main {
 }
 
 .btn-x {
-  margin-left: 2px;
   margin-right: 5px;
   background-color: var(--clr-warning);
 }
@@ -148,5 +140,21 @@ li:hover {
   width: 150px;
   padding: 0.1rem;
   padding-left: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
   /* transition: width 0.4s ease; */
+}
+
+/************* medium devices ***********************/
+@media (min-width: 992px) and (max-width: 1199px) {
+  main {
+    width: 80%;
+  }
+}
+
+/************** Large devices **********************/
+@media (min-width: 1200px) {
+  main {
+    width: 70%;
+  }
 }

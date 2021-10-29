@@ -5,10 +5,20 @@ const sEngine = document.getElementById('s-engine')
 const quickSearch = document.getElementById('quick-search')
 const openWindowsList = document.getElementById('open-windows-list')
 const outputListNames = document.getElementById('output-list-names')
+const themesListNames = document.getElementById('themes-list-names')
 
 var openWindowsArr = []
 let myLists = loadArray('myLists') || []
 let curentID = 0
+let curentTheme = 0
+
+themesArr = [
+  ['Main', ''],
+  [
+    'Dark',
+    '--clr-main: rgba(4, 63, 58, 0.7); --clr-light: rgba(215, 213, 218, 0.7); --clr-dark: rgba(45, 63, 58, 0.8); --clr-lists: rgba(55, 73, 68, 0.65); --clr-background: gray',
+  ],
+]
 
 if (myLists.length === 0) {
   myLists.push(newListObj('first list'))
@@ -16,6 +26,7 @@ if (myLists.length === 0) {
   renderList()
 }
 renderListsNames()
+renderThemesList()
 
 function newListObj(name) {
   let listObj = {
@@ -83,9 +94,33 @@ function btnXClick(str, index) {
   renderList()
 }
 
+function renderThemesList() {
+  themesListNames.innerHTML = ''
+  const ul = document.createElement('ul')
+  themesArr.forEach((theme, index) => {
+    const li = document.createElement('li')
+    li.innerText = theme[0]
+    ul.appendChild(li)
+    if (index === curentTheme) {
+      li.style.fontWeight = 'bold'
+      li.style.background = 'var(--clr-lists)'
+      li.style.borderRadius = '1rem'
+    }
+    li.addEventListener('click', () => {
+      if (themesArr[index][0] === 'Main') {
+        window.location.reload(false)
+      } else {
+        document.documentElement.style.cssText = themesArr[index][1]
+      }
+      curentTheme = index
+      renderThemesList()
+    })
+  })
+
+  themesListNames.appendChild(ul)
+}
+
 function renderOpenWindows() {
-  // openWindows.filter((window)=>window.closed)
-  // console.log(openWindowsArr)
   openWindowsList.innerHTML = ''
   const ul = document.createElement('ul')
   openWindowsArr.forEach((w, index) => {
@@ -101,7 +136,6 @@ function renderOpenWindows() {
       openWindowsArr.splice(index, 1)
       renderOpenWindows()
     })
-
     ul.appendChild(li)
   })
   openWindowsList.appendChild(ul)
@@ -148,9 +182,9 @@ function renderList() {
 
     //btn x (delete)
     const btnX = document.createElement('button')
-    btnX.textContent = 'X'
+    btnX.innerHTML = '<i class="fa fa-trash-o"></i>'
     btnX.classList.add('btn', 'btn-x')
-    btnX.setAttribute('title', 'Delete ' + str)
+    btnX.setAttribute('title', 'Delete: ' + str)
     div.appendChild(btnX)
     btnX.addEventListener('click', () => btnXClick(str, index))
 
@@ -227,6 +261,7 @@ async function paste() {
   const text = await navigator.clipboard.readText()
   textArea.value = text
 }
+
 function btnQuickSearchClick() {
   btnSClick(quickSearch.value)
 }
@@ -242,6 +277,7 @@ function btnAddClick() {
 function btnClearClick() {
   textArea.value = ''
 }
+
 function btnSaveClick() {
   let listName = window.prompt(
     'Enter list name:',
@@ -255,12 +291,12 @@ function btnSaveClick() {
   myLists[curentID].strings = [...myLists[tmpID].strings]
   renderListsNames()
 }
+
 function btnExpandClick() {
   textArea.classList.toggle('expanded')
   textArea.focus()
 }
 
-//---- Event Listeners
 btnRecall.addEventListener('click', () => {
   textArea.value = myLists[curentID].strings.join('\n')
   // myLists[curentID].strings = []
