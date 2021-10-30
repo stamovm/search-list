@@ -15,8 +15,16 @@ let curentTheme = 0
 themesArr = [
   ['Main', ''],
   [
-    'Dark',
+    'Theme 2',
     '--clr-main: rgba(4, 63, 58, 0.7); --clr-light: rgba(215, 213, 218, 0.7); --clr-dark: rgba(45, 63, 58, 0.8); --clr-lists: rgba(55, 73, 68, 0.65); --clr-background: gray',
+  ],
+  [
+    'Theme 3',
+    '--clr-main: rgba(54, 63, 58, 0.7); --clr-light: rgba(215, 213, 218, 0.7); --clr-dark: rgba(95, 63, 58, 0.8); --clr-lists: rgba(105, 73, 68, 0.65); --clr-background: gray',
+  ],
+  [
+    'Theme 4',
+    '--clr-main: rgba(4, 9, 146, 0.6); --clr-light: rgba(108, 140, 253, 0.7); --clr-dark: rgba(5, 63, 58, 0.5); --clr-lists: rgba(5, 10, 140, 0.45); --clr-background: lightblue',
   ],
 ]
 
