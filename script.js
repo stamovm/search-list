@@ -315,3 +315,10 @@ btnRecall.addEventListener('click', () => {
 quickSearch.addEventListener('keyup', (event) => {
   if (event.key === 'Enter') btnSClick(quickSearch.value)
 })
+
+function createButton(txt, cls = 'btn') {
+  const btn = document.createElement('button')
+  btn.textContent = txt
+  btn.classList.add(cls)
+  return btn
+}
